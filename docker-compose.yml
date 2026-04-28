@@ -1,17 +1,14 @@
 services:
   nometoco:
-    build: .
+    image: f1rul4yx/nometoco:latest
     container_name: nometoco
     restart: always
     ports:
-      - "3002:3002"
+      - "3000:3000"
     volumes:
-      - nometoco-data:/app/data
+      - ./data:/app/data
     environment:
-      - PORT=3002
+      - PORT=3000
       - JWT_SECRET=${JWT_SECRET:-cambia_esto_genera_uno_con_openssl_rand_hex_32}
       - NODE_ENV=production
       - TZ=Europe/Madrid
-
-volumes:
-  nometoco-data:

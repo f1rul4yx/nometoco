@@ -16,26 +16,36 @@ App para monitorizar hábitos compulsivos (tocarse la cara y morderse las uñas)
 ## Instalación
 
 ```bash
-apt install docker.io docker-compose -y
+apt install docker.io -y
 git clone https://github.com/f1rul4yx/nometoco.git
 cd nometoco
 ```
 
-Genera un secreto JWT y pégalo en `docker-compose.yml`:
+Genera un secreto JWT:
 
 ```bash
-openssl rand -hex 32
-nano docker-compose.yml  # sustituye el JWT_SECRET
+echo "JWT_SECRET=$(openssl rand -hex 32)" > .env
 ```
 
-Arranca:
+Arranca (usa la imagen publicada en Docker Hub):
 
 ```bash
-docker compose up -d --build
+docker compose up -d
 docker compose logs -f
 ```
 
-La app estará en `http://<IP>:3002`. Regístrate desde la pantalla de inicio.
+La app estará en `http://<IP>:3000`. Regístrate desde la pantalla de inicio.
+
+## Construir imagen propia
+
+Si quieres modificar el código y generar tu propia imagen:
+
+```bash
+cd build/
+docker build -t f1rul4yx/nometoco:latest .
+cd ..
+docker compose up -d
+```
 
 ## Uso en el móvil
 
@@ -47,13 +57,17 @@ La app estará en `http://<IP>:3002`. Regístrate desde la pantalla de inicio.
 ## Comandos útiles
 
 ```bash
-docker compose logs -f          # Ver logs
-docker compose restart          # Reiniciar
-docker compose down             # Parar
-docker compose up -d --build    # Rebuild tras cambios
+docker compose logs -f        # Ver logs
+docker compose restart        # Reiniciar
+docker compose down           # Parar
+docker compose up -d          # Arrancar
+
+# Rebuild tras cambios en el código
+cd build/ && docker build -t f1rul4yx/nometoco:latest . && cd ..
+docker compose up -d
 
 # Backup de la base de datos
-docker cp nometoco:/app/data/nometoco.db ./backup-$(date +%Y%m%d).db
+cp data/nometoco.db ./backup-$(date +%Y%m%d).db
 ```
 
 ## Stack
