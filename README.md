@@ -28,16 +28,14 @@ docker compose up -d
 Accede a `http://<IP>:3000`. Regístrate, acepta las notificaciones y añade la app a la pantalla de inicio desde Chrome (menú ⋮ → "Añadir a pantalla de inicio").
 
 ```bash
-docker compose logs -f    # Ver logs
-docker compose restart    # Reiniciar
 docker compose down       # Parar
+docker compose restart    # Reiniciar
+docker compose logs -f    # Ver logs
 ```
 
 ## Build
 
 ```bash
-cd build/
-docker build -t f1rul4yx/nometoco:latest .
-cd ..
-docker compose up -d
+docker build -t f1rul4yx/nometoco:latest ./build
+docker push f1rul4yx/nometoco:latest
 ```
