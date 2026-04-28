@@ -2,7 +2,7 @@ services:
   nometoco:
     image: f1rul4yx/nometoco:latest
     container_name: nometoco
-    restart: always
+    restart: unless-stopped
     ports:
       - "3000:3000"
     volumes:
@@ -12,3 +12,8 @@ services:
       - JWT_SECRET=${JWT_SECRET:-cambia_esto_genera_uno_con_openssl_rand_hex_32}
       - NODE_ENV=production
       - TZ=Europe/Madrid
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

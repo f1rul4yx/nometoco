@@ -7,7 +7,7 @@ const webPush = require('web-push');
 const path = require('path');
 const fs = require('fs');
 
-const PORT = process.env.PORT || 3002;
+const PORT = process.env.PORT || 3000;
 const JWT_SECRET = process.env.JWT_SECRET || 'nometoco_' + require('crypto').randomBytes(32).toString('hex');
 const DB_PATH = path.join(__dirname, '..', 'data', 'nometoco.db');
 const VAPID_PATH = path.join(__dirname, '..', 'data', 'vapid-keys.json');
